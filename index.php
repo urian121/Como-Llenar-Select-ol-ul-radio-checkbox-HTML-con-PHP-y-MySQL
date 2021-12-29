@@ -22,13 +22,13 @@
         $con = mysqli_connect($servidor, $usuario, $password) or die("No se ha podido conectar al Servidor");
         $db = mysqli_select_db($con, $basededatos) or die("Upps! Error en conectar a la Base de Datos");
         
-        $sqlClientes         = ("SELECT * FROM  clientes LIMIT 10");
+        $sqlClientes         = ("SELECT * FROM  clientes ORDER BY id DESC LIMIT 10");
         $dataClientesSelect  = mysqli_query($con, $sqlClientes);
 
-        $dataClientes_ol       = mysqli_query($con, $sqlClientes);
-        $dataClientes_ul       = mysqli_query($con, $sqlClientes);
-        $dataClientes_radio    = mysqli_query($con, $sqlClientes);
-        $dataClientes_checkbox = mysqli_query($con, $sqlClientes);
+        $dataClientes_ol       = mysqli_query($con, $sqlClientes); //Lista ordenada
+        $dataClientes_ul       = mysqli_query($con, $sqlClientes); //lista desordenada
+        $dataClientes_radio    = mysqli_query($con, $sqlClientes); //inputs tipo radio
+        $dataClientes_checkbox = mysqli_query($con, $sqlClientes); //inputs tipo checkbox
       ?>
 
 
@@ -38,7 +38,9 @@
         <option value="">Seleccione el Cliente</option>
         <?php
           while ($dataSelect = mysqli_fetch_array($dataClientesSelect)) { ?>
-            <option value="<?php echo $dataSelect["id"]; ?>"><?php echo utf8_encode($dataSelect["nombre"]); ?> </option>
+            <option value="<?php echo $dataSelect["id"]; ?>">
+              <?php echo utf8_encode($dataSelect["nombre"]); ?>
+            </option>
         <?php } ?>
       </select>
     </div>
